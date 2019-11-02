@@ -79,14 +79,26 @@ controller.on('rtm_close', function (bot) {
 /**
  * Core bot logic goes here!
  */
-// BEGIN EDITING HERE!
 
 controller.on('bot_channel_join', function (bot, message) {
     bot.reply(message, "I'm here!")
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
-    bot.reply(message, 'Hello!');
+controller.hears('ciao', 'direct_message', function (bot, message) {
+    console.log("*** ciao called");
+    bot.reply(message, 'Ciao!');
+});
+
+controller.hears(['anagrafica (.*)', 'scheda (.*)'], 'direct_message', function (bot, message) {
+    console.log("*** anagrafica called");
+    let catName = message.match[1];
+    let response = `Ecco l'anagrafica di ${catName}:
+- Nome: ${catName}
+- Sesso: M
+- Età: 4 anni (stima)
+- Data Entrata: 20 Agosto 2019
+- Fiv-Felv: testato negativo`;
+    bot.reply(message, response);
 });
 
 
